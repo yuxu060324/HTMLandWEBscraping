@@ -2,10 +2,14 @@ from selenium import webdriver
 from selenium.webdriver.chrome import service as fs
 from selenium.webdriver.common.by import By
 import pandas as pd
+import requests
 
 ChromeDriver = "./chromedriver.exe"
 options = webdriver.ChromeOptions()
 options.add_argument('--headless')
+
+LINE_TOKEN = "B6pSW9uip417vO1qGi1IXzh9JINbrRJke8ovxA1BNxR"
+LINE_API = "https://notify-api.line.me/api/notify"
 
 def get_horse_DateFrame():
 
@@ -62,6 +66,12 @@ def get_url_dictionary():
 
     return url_dic
 
+def send_LINE_notify(send_message):
+
+    headers = {'Authorization': f'Bearer {LINE_TOKEN}'}
+    data = {'message': send_message}
+    requests.post(LINE_API, headers=headers, data=data)
+
 
 base_race_url = "https://race.netkeiba.com/race/shutuba.html?race_id="
 race_id = "202109050611"
@@ -78,3 +88,4 @@ horse_data = get_horse_DateFrame()
 race_data = get_race_info()
 url_dic = get_url_dictionary()
 
+send_LINE_notify(send_message="Hello")
