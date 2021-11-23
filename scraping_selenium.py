@@ -24,6 +24,9 @@ def get_horse_DateFrame():
         del list1[1], list2[1], list2[4]
         list1[1:1] = list2
 
+        if len(list1)==11:
+            del list1[8]
+
         horse_data.loc[i] = list1
 
     print(horse_data)
@@ -77,6 +80,7 @@ base_race_url = "https://race.netkeiba.com/race/shutuba.html?race_id="
 race_id = "202109050611"
 add_url = "&rf=shutuba_submenu"
 race_card_url = base_race_url + race_id + add_url
+
 table_columns = ["枠", "馬番", "馬名", "性別", "年齢", "斤量", "騎手", "厩舎", "オッズ", "人気"]
 
 chrome_service = fs.Service(executable_path=ChromeDriver)
@@ -88,4 +92,4 @@ horse_data = get_horse_DateFrame()
 race_data = get_race_info()
 url_dic = get_url_dictionary()
 
-send_LINE_notify(send_message="Hello")
+# send_LINE_notify(send_message="Hello")
